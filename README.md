@@ -28,6 +28,9 @@ go: downloading github.com/nixsum/payper v0.0.0-20240128172000-f4c7f8739437
 --- Now you can connect to port 2222 on the frontend and it will be automatically relayed to the backend.
 
 \$ nc -v 45.76.88.19 2222
+
 Ncat: Version 7.93 ( https://nmap.org/ncat )
+
 Ncat: Connected to 45.76.88.19:2222.
+
 SSH-2.0-OpenSSH_8.8
