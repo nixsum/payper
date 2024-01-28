@@ -11,6 +11,7 @@ Also note that as of now the connector does not authenticate the listener in any
 --- Build the tool and locate it inside \$HOME/go/bin
 
 \$ go install github.com/nixsum/payper@latest
+
 go: downloading github.com/nixsum/payper v0.0.0-20240128172000-f4c7f8739437
 
 --- Start the listener on your frontend
@@ -20,6 +21,7 @@ go: downloading github.com/nixsum/payper v0.0.0-20240128172000-f4c7f8739437
 --- Start the connector on your backend, in this case I will forward connection to my ssh server. You will recieve a message that it is linked with the frontend
 
 \$ go/bin/payper tcp4:127.0.0.1:22 tcp4:45.76.88.19:3333
+
 2024/01/28 17:44:25 Recieved linkup from 62.73.122.87:61300 ; id: 0
 
 
