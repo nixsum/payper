@@ -1,15 +1,10 @@
 package main
 
 import (
-	"net"
 	"os"
-	"log"
-	"io"
 	"fmt"
-	"sync"
-	"socks"
+	"log"
 )
-
 
 
 func help() {
@@ -43,9 +38,9 @@ func main() {
 	sock_pub_string := os.Args[3][5:]
 
 	if mode == "listen" {
-		socks.listen(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string)
+		Listen(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string)
 	} else if mode == "connect" {
-		socks.connect(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string)
+		Connect(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string)
 	}
 }
 

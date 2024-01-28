@@ -1,12 +1,9 @@
-package socks
-
+package main
 
 import (
 	"net"
-	"os"
 	"log"
 	"io"
-	"fmt"
 	"sync"
 )
 
@@ -99,7 +96,7 @@ func accept(listener_loc, listener_pub net.Listener, wg_listen *sync.WaitGroup, 
 }
 
 
-func listen(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string string) {
+func Listen(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string string) {
 	// Start the public and local listeners
 	listener_pub, err := net.Listen(sock_pub_type, sock_pub_string)
 	if err != nil {
@@ -121,7 +118,7 @@ func listen(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string strin
 }
 
 
-func connect(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string string) {
+func Connect(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string string) {
 	var wg_connect sync.WaitGroup
 	id := 0
 	wg_connect.Add(1)
