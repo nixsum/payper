@@ -48,10 +48,10 @@ func linkup(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string strin
 	// go conn_copy(&conn_loc, &conn_pub, &wg_copy)
 	// go conn_copy(&conn_pub, &conn_loc, &wg_copy)
 	go func () {
+		defer wg_copy.Done()
 		io.Copy(conn_loc, conn_pub)
 	}()
 	go func () {
-		defer wg_copy.Done()
 		io.Copy(conn_pub, conn_loc)
 	}()
 	wg_copy.Wait() // Wait until both copies complete, they will copy until they reach EOF
