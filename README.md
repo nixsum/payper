@@ -20,7 +20,7 @@ $ go/bin/payper listen tcp4:0.0.0.0:2222 tcp4:0.0.0.0:3333
 --- Start the connector on your backend, in this case I will forward connection to my ssh server. You will recieve a message that it is linked with the frontend
 ```
 $ go/bin/payper connect tcp4:127.0.0.1:22 tcp4:45.76.88.19:3333
-2024/01/28 18:09:42 Recieved linkup from 62.73.122.87:61242 ; id: 0
+2024/01/28 18:09:42 Linked with 45.76.88.19:3333 ; id: 0
 ```
 
 --- Now you can connect to port 2222 on the frontend and it will be automatically relayed to the backend.
