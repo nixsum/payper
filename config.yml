@@ -1,0 +1,26 @@
+# Example config for a listener and a connector
+
+listener:
+  sock_loc: tcp4:localhost:2222
+  sock_pub: tcp4:localhost:3333
+
+  tcp_leepalive: 0
+
+  ssl:
+    enabled: yes
+    server_cert: ssl/server_cert.pem
+    server_key: ssl/server_key.pem
+    client_certs:
+      - ssl/c0.pem
+
+connector:
+  sock_loc: tcp4:localhost:4444
+  sock_pub: tcp4:localhost:3333
+
+  tcp_keepalive: 0
+
+  ssl:
+    enabled: yes
+    server_cert: ssl/server_cert.pem
+    client_cert: ssl/c0.pem
+    client_key: ssl/k0.pem
