@@ -105,7 +105,7 @@ func connect(conf Conf) {
 		}
 	}
 
-	var wg_connect sync.WaitGroup
+	var wg_connect sync.WaitGroup	
 	id := 0
 	wg_connect.Add(1)
 	go linkup(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string, tlsconfig, &wg_connect, id)

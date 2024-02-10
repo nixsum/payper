@@ -12,11 +12,19 @@ import (
 
 func accept(listener_loc, listener_pub net.Listener, wg_listen *sync.WaitGroup, id int) {
 	defer wg_listen.Done()
-	conn_pub, err := listener_pub.Accept() // Will block here
-	if err != nil {
-		log.Fatal("Listener error: %s", err)	
+	
+	var conn_pub net.Conn = nil
+	
+	for conn_pub == nil {
+		var err error
+		conn_pub, err = listener_pub.Accept() // Will block here
+		if err != nil {
+			log.Printf("Listener error: %s", err)
+			conn_pub = nil
+		}
 	}
 	defer conn_pub.Close()
+	
 	log.Printf("Recieved linkup from %s ; id: %d\n", conn_pub.RemoteAddr(), id)
 
 	// Accept connection on the local listener
