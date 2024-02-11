@@ -11,3 +11,4 @@ listener:
     server_cert: ssl/server_cert.pem
     server_key: ssl/server_key.pem
     client_certs:
+      - ssl/c0.pem
