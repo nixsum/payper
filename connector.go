@@ -55,20 +55,10 @@ func linkup(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string strin
 
 	wg_connect.Add(1)
 	go linkup(sock_pub_type, sock_pub_string, sock_loc_type, sock_loc_string, tlsconfig, wg_connect, id + 1)
-
-	var wg_copy sync.WaitGroup
-	wg_copy.Add(1)
 	
-	// go conn_copy(&conn_loc, &conn_pub, &wg_copy)
-	// go conn_copy(&conn_pub, &conn_loc, &wg_copy)
-	go func () {
-		defer wg_copy.Done()
-		io.Copy(conn_loc, conn_pub)
-	}()
-	go func () {
-		io.Copy(conn_pub, conn_loc)
-	}()
-	wg_copy.Wait() // Wait until both copies complete, they will copy until they reach EOF
+	go io.Copy(conn_pub, conn_loc)
+	io.Copy(conn_loc, conn_pub)
+
 	log.Printf("Closed linkup and connection with id %d\n", id)
 }
 

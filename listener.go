@@ -13,18 +13,13 @@ import (
 func accept(listener_loc, listener_pub net.Listener, wg_listen *sync.WaitGroup, id int) {
 	defer wg_listen.Done()
 	
-	var conn_pub net.Conn = nil
-	
-	for conn_pub == nil {
-		var err error
-		conn_pub, err = listener_pub.Accept() // Will block here
-		if err != nil {
-			log.Printf("Listener error: %s", err)
-			conn_pub = nil
-		}
+	conn_pub, err := listener_pub.Accept() // Will block here
+	if err != nil {
+		log.Printf("Listener error: %s", err)
+		conn_pub = nil
 	}
 	defer conn_pub.Close()
-	
+
 	log.Printf("Recieved linkup from %s ; id: %d\n", conn_pub.RemoteAddr(), id)
 
 	// Accept connection on the local listener
@@ -37,20 +32,14 @@ func accept(listener_loc, listener_pub net.Listener, wg_listen *sync.WaitGroup, 
 
 	wg_listen.Add(1)
 	go accept(listener_loc, listener_pub, wg_listen, id + 1) // Call self to accept a new connection
-
-	var wg_copy sync.WaitGroup
-	wg_copy.Add(1)
 	
-	// go conn_copy(&conn_loc, &conn_pub, &wg_copy)
-	// go conn_copy(&conn_pub, &conn_loc, &wg_copy)
-	go func () {
-		io.Copy(conn_loc, conn_pub)
-	}()
-	go func () {
-		defer wg_copy.Done()
-		io.Copy(conn_pub, conn_loc)
-	}()
-	wg_copy.Wait() // Wait until both copies complete, they will copy until they reach EOF
+	go io.Copy(conn_pub, conn_loc)
+	
+	io.Copy(conn_loc, conn_pub)
+
+	conn_loc.Close()
+	conn_pub.Close()
+
 	log.Printf("Closed linkup and connection with id %d\n", id)
 }
 
